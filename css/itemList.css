@@ -1,0 +1,106 @@
+.page-header {
+  padding-bottom: 0;
+}
+
+.page-header h3 {
+  margin: 0;
+}
+
+.none-found {
+  padding-top: 0;
+}
+
+.item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  border-bottom: 1px solid #ddd;
+  display: table;
+  width: 100%;
+}
+
+.item a {
+  text-decoration: none;
+}
+
+.item h3 {
+  color: rgb(80, 120, 200);
+  margin: 0;
+}
+
+.item-img, .item-desc {
+  display: table-cell;
+  padding: 1em;
+  vertical-align: top;
+}
+
+.item-img {
+  width: 20em;
+}
+
+.item-img img {
+  display: block;
+  margin: 0.4em auto;
+  max-height: 100px;
+}
+
+.item-desc {
+  border-left: 1px solid #eee;
+}
+
+.item-desc th, .item-desc td, table.il th, table.il td {
+  border-bottom: 1px solid #eee;
+  vertical-align: top;
+}
+
+.item-desc th, table.il th {
+  white-space: nowrap;
+}
+
+.item-desc-before {
+  display: none;
+}
+
+table.il {
+  width: 100%;
+}
+
+table.il th {
+  text-align: left;
+}
+
+@media only screen and (max-width: 32em) {
+  .item, .item-img, .item-desc {
+    display: block;
+    width: auto;
+  }
+
+  .item-desc table, table.il {
+    width: 100%;
+  }
+
+  .item-desc-before {
+    border: none;
+    display: block;
+  }
+
+  .item-desc-after {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 40.0625em) and (max-width: 52em) {
+  .item-img {
+    padding: 1em 0.5em 1em 1em;
+    width: 11em;
+  }
+}
+
+@media only screen and (min-width: 32.0625em) and (max-width: 40em) {
+  .item-img {
+    width: 15em;
+  }
+}

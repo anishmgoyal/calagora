@@ -1,0 +1,156 @@
+{{define "title"}}
+  Calagora :: New Listing
+{{end}}
+
+{{define "body"}}
+<section class="formContainer">
+  <section class="formBox">
+    <form action="/upload" style="display: none" method="post" id="uploadForm" enctype="multipart/form-data">
+      <input type="hidden" id="listing_id" name="listing_id" value="{{.Data.Listing.ID}}" />
+      <input type="hidden" name="csrfToken" value="{{.Session.CsrfToken}}" />
+      <input type="file" multiple="multiple" id="upload" name="upload" />
+    </form>
+    <form class="small-full large-dthird grid-wide form" method="post" action="/listing/edit/{{.Data.Listing.ID}}">
+      <input type="hidden" name="listing_id" value="{{.Data.Listing.ID}}" />
+      <div class="small-full grid-wide">
+        <h4>New Listing</h4>
+      </div>
+      {{if .Data.HasError }}
+        <div class="grid-wide small error">
+          {{- .Data.Error.Global -}}
+        </div>
+      {{end}}
+
+      <div class="small-full grid-wide">
+        <label>Listing Title</label>
+        <div class="small error">
+          {{- .Data.Error.Name -}}
+        </div>
+        <input type="text" name="name" value="{{ .Data.Listing.Name }}" />
+      </div>
+
+      <div class="small-full grid-wide">
+        <label>Draft Settings</label>
+        <label class="checkbox-label">
+          <div class="checkbox-row">
+            <div class="checkbox-cell">
+              <input type="checkbox" name="published" value="1"
+                {{- if .Data.Listing.Published -}}
+                  checked = "checked"
+                {{- end -}}
+               />
+            </div>
+            <div class="checkbox-cell">
+              Select this if you would like to publish this listing
+              so that other users can see it.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="small-full grid-wide">
+        <label>Images</label>
+        <input type="hidden" name="primaryImage" id="primaryImage" />
+        <div class="small">
+          To choose the image to use as a thumbnail for your listing, just
+          click on the image you would like to use after uploading it. Once
+          you have done this, your current selection will be highlighted.
+        </div>
+        <div class="formBlock small">
+          <div id="listingImageThumbnails"></div>
+          <div id="imageUploader" class="imageUploader">
+            <div id="imageUploaderDefault">
+              Click to browse, or drag and drop image files onto this box.
+            </div>
+            <div id="imageUploaderProgress" style="display: none">
+              Uploading Your Files, Please Wait
+              <div class="progressContainer">
+                <div class="progressFull">
+                  <div id="progress" class="progress indeterminate">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="processingBlock" class="processing-block"></div>
+        </div>
+      </div>
+
+      <div class="small-full medium-third grid-wide">
+        <label>Price</label>
+        <div class="small error">
+          {{- .Data.Error.Price -}}
+        </div>
+        <input type="num" name="price" value="{{ .Data.Listing.PriceClient }}" />
+      </div><!--
+      --><div class="small-full medium-third grid-wide">
+        <label>Category</label>
+        <div class="small error">
+          {{- .Data.Error.Type -}}
+        </div>
+        <select name="type" value="{{ .Data.Listing.Type }}">
+          {{ $c := .Constants }}
+          {{ $l := .Data.Listing }}
+          {{ range $ind, $type := (index .Constants "listing.typenames") }}
+            <option value="{{ $type }}"
+              {{- if eq (compare $type $l.Type) 0 -}}
+                selected = "selected"
+              {{- end -}}>
+              {{- index (index $c "listing.types") $type -}}
+            </option>
+          {{ end }}
+        </select>
+      </div><!--
+      --><div class="small-full medium-third grid-wide">
+        <label>Condition</label>
+        <div class="small error">
+          {{- .Data.Error.Condition -}}
+        </div>
+        <select name="condition">
+          {{ $c := .Constants }}
+          {{ $l := .Data.Listing }}
+          {{ range $ind, $type := (index .Constants "listing.conditionnames") }}
+            <option value="{{ $type }}"
+              {{- if eq (compare $type $l.Condition) 0 -}}
+                selected="selected"
+              {{- end -}}>
+              {{- index (index $c "listing.conditions") $type -}}
+            </option>
+          {{ end }}
+        </select>
+      </div>
+
+      <div class="small-full grid-wide formBlock">
+        <label>Description</label>
+        <div class="small error">
+          {{- .Data.Error.Description -}}
+        </div>
+        <textarea name="description">{{ .Data.Listing.Description }}</textarea>
+      </div>
+
+      <input type="hidden" name="csrfToken" value="{{ .Session.CsrfToken }}" />
+      <input type="hidden" name="submissionType" id="submissionType" value="" />
+
+      <div class="small-full grid-wide">
+        <button type="submit">Save Listing</button>
+      </div>
+    </form>
+  </section>
+</section>
+{{end}}
+
+{{define "deferredIncludes"}}
+  <link rel="stylesheet" type="text/css" href="/css/uploader.css" />
+  <script type="text/javascript">
+    window.images = [
+      {{ $num := len .Data.Images }}
+      {{ range $i, $image := .Data.Images }}
+        {id: "{{$image.ID}}", url: "{{$image.URL}}", ordinal: "{{$image.Ordinal}}"}
+        {{- if lt $i $num -}} , {{- end}}
+      {{ end }}
+    ];
+
+    window.csrfToken = "{{ .Session.CsrfToken }}";
+    csrfToken = csrfToken.replace(/\//gi, "_");
+  </script>
+  <script type="text/javascript" src="/js/upload.js"></script>
+{{end}}

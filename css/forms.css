@@ -1,0 +1,102 @@
+.formBox {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+.form {
+  text-align: left;
+  padding: 1em 0.8em;
+}
+
+.form.enforceSize {
+  max-width: 400px;
+}
+
+.formPadded {
+  padding: 3em 1em;
+}
+
+.formPaddedLess {
+  padding: 1em;
+}
+
+.form label {
+  color: #333;
+  display: block;
+  font-weight: bold;
+  font-size: 0.8em;
+}
+
+input, select, textarea, button {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.form input[type=text], .form input[type=password], .form input[type=tel],
+.form input[type=email], .form input[type=num], input[type=file], .form select,
+.form textarea, button {
+  border: 1px solid #818283;
+  display: block;
+  margin-bottom: 0.4em;
+  padding: 0.5em 0.6em;
+  width: 100%;
+}
+
+.form select {
+  padding: 0.4em 0.6em;
+}
+
+.form textarea {
+  height: 130px;
+  font-family: "Open Sans", Verdana, sans-serif;
+  font-family: inherit;
+  font-size: 0.83em;
+  resize: none;
+}
+
+.form textarea.char_140 {
+  height: 80px;
+}
+
+.form .checkbox-label {
+  display: table;
+  font-weight: normal;
+  margin: 0 0 0.1em;
+}
+
+.form .checkbox-label .checkbox-row {
+  display: table-row;
+}
+
+.form .checkbox-label .checkbox-cell {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.form .checkbox-label .checkbox-cell input[type=checkbox] {
+  margin-left: 0;
+  margin-right: 0.3em;
+  vertical-align: middle;
+}
+
+button {
+  background-color: rgb(80, 120, 200);
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0.8em 0.6em;
+}
+
+a.button {
+  text-decoration: none;
+}
+
+.form .formBlock {
+  margin-bottom: 0.4em;
+}
+
+.form .error {
+  color: red;
+}

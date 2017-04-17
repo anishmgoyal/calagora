@@ -1,0 +1,38 @@
+{{define "activePageSelector" -}}
+#lnk_login
+{{- end}}
+
+{{define "title"}}
+  Calagora :: Login
+{{end}}
+
+{{define "body"}}
+<section class="formContainer">
+  <section class="formBox">
+    <form class="small-full medium-dthird large-third form enforceSize formPadded" method="post" action="/user/login/">
+      <div>
+        <h4>Login</h4>
+      </div>
+      {{if .Data.HasError }}
+        <div class="small error">{{ .Data.Error }}</div>
+      {{end}}
+      <label>Username</label>
+      <input type="text" name="username" value="{{ .Data.Username }}" autofocus />
+      <label>Password</label>
+      <input type="password" name="password" />
+      <input type="hidden" name="redirect" value="{{ .Data.Redirect }}" />
+      <div class="formBlock">
+        <div>
+          <a href="/user/register/" class="small">First Time Here? Register</a>
+        </div>
+        <div>
+          <a href="/recover/" class="small">Forgot Your Password?</a>
+        </div>
+      </div>
+      <div>
+        <button type="submit">Login</button>
+      </div>
+    </form>
+  </section>
+</section>
+{{end}}

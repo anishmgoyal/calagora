@@ -1,0 +1,35 @@
+{{ define "sidebar" }}
+  <div class="content-sidebar-padding unless-small"> </div>
+  <div><a id="lnk_home" href="/">Home</a></div>
+  <div class="content-sidebar-has-dropdown">
+    <a id="lnk_listings" href="javascript:void(null)">
+      Listings &#x203a;
+    </a>
+    <div class="content-sidebar-dropdown">
+      <div class="content-sidebar-close if-small">
+        <a href="javascript:void(null)" class="content-sidebar-close-button">
+          <i class="fi-x"></i>
+        </a>
+      </div>
+      <a id="lnk_all" href="/listing/section/">All Listings</a>
+      <a id="lnk_textbook" href="/listing/section/textbook">Textbooks</a>
+      <a id="lnk_electronics" href="/listing/section/electronics">Electronics</a>
+      <a id="lnk_homegoods" href="/listing/section/homegoods">Home Goods &amp; Furniture</a>
+      <a id="lnk_automotive" href="/listing/section/automotive">Automotive</a>
+      <a id="lnk_clothing" href="/listing/section/clothing">Clothing</a>
+      <a id="lnk_athletics" href="/listing/section/athletics">Athletic Equipment</a>
+      <a id="lnk_misc" href="/listing/section/misc">Miscellaneous</a>
+    </div>
+  </div>
+  <div><a id="lnk_buying" href="/buying">Buying</a></div>
+  <div><a id="lnk_selling" href="/selling">Selling</a></div>
+  <div><a id="lnk_messages" href="/message/client/#list">Messages</a></div>
+  {{ if .Session }}
+    <div><a id="lnk_profile" href="/user/profile/">Profile</a></div>
+    <div><a id="lnk_logout" href="/user/logout/">Logout</a></div>
+  {{ else }}
+    <div><a id="lnk_login" href="/user/login/?return={{.CurrentURI}}">Login</a></div>
+    <div><a id="lnk_register" href="/user/register/">Register</a></div>
+  {{ end }}
+  <div class="content-sidebar-padding unless-small"> </div>
+{{end}}

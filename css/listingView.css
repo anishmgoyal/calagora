@@ -1,0 +1,171 @@
+  .padded-view {
+    padding: 1em 0;
+  }
+
+  .top {
+    display: inline-table;
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  .top > div {
+    display: table-cell;
+    padding: 1em;
+    vertical-align: top;
+  }
+
+  .top-image {
+    border-right: 1px solid #ccc;
+    max-width: 17em;
+    width: 17em;
+  }
+
+  .top-description {
+    width: 100%;
+  }
+
+  .top-image .main {
+    display: block;
+    height: 15em;
+    margin: 0.3em auto;
+    position: relative;
+    width: 15em;
+  }
+
+  .top-image img {
+    left: 50%;
+    margin: 0;
+    max-height: 100%;
+    max-width: 100%;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .top-image .thumb {
+    border: 0.15em solid #ddd;
+    cursor: pointer;
+    display: inline-block;
+    height: 3.2em;
+    position: relative;
+    margin: 0 0.5% 0.3em;
+    vertical-align: middle;
+    width: 24%;
+  }
+
+  .top-image .thumb img {
+    left: 50%;
+    margin: 0;
+    max-height: 100%;
+    max-width: 100%;
+    padding: 0.2em;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .top-description h3 {
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .description-block {
+    margin: 0.3em 0 0;
+  }
+
+  .button-block {
+    margin: 1em 0 0;
+  }
+
+  .offer-feed-wrapper {
+    padding: 0.2em 1em;
+  }
+
+  .offer-feed-instruction {
+    font-size: 0.9em;
+  }
+
+  .offer-feed-header {
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    color: #444;
+    margin: 1em 0 0.8em;
+    padding: 0.5em 0.5em 0.2em;
+  }
+
+  .listing-description {
+    white-space: pre-wrap;
+  }
+
+  @media only screen and (min-width: 40.0625em) and (max-width: 64em) {
+    .top-image {
+      max-width: 13em;
+      width: 13em;
+    }
+    .top-image .main {
+      width: 11em;
+    }
+    .offer-feed-wrapper {
+      padding: 0.2em 0.5em;
+    }
+  }
+
+  @media only screen and (max-width: 40em) {
+
+    .small-table {
+      display: inline-table;
+      table-layout: fixed;
+      width: 100%;
+    }
+
+    .padded-view {
+      padding: 1em;
+    }
+
+    .top, .top > div {
+      display: block;
+      padding: 0;
+    }
+
+    .top-image {
+      border: none;
+      max-width: 100%;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .top-image .main {
+      max-height: 10em;
+      height: auto;
+    }
+    .top-image .main img {
+      display: block;
+      height: auto;
+      margin: auto;
+      max-height: 10em;
+      position: static;
+      -webkit-transform: none;
+      -o-transform: none;
+      transform: none;
+    }
+    .offer-feed-wrapper {
+      padding: 0;
+    }
+  }
+
+  @media only screen and (max-width: 40em) {
+    .top-image {
+      max-width: 20em;
+    }
+  }
+
+  @media only screen and (min-width: 32.0625em) and (max-width: 40em) {
+    .top-image {
+      max-width: 32em;
+    }
+    .top-image .thumb {
+      width: 11.5%;
+    }
+  }

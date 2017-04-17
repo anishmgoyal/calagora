@@ -1,0 +1,17 @@
+#<up "1.00">
+CREATE DATABASE calagora;
+
+CREATE ROLE calagorauser LOGIN
+  ENCRYPTED PASSWORD 'md534516d479d21c0b1b113ceb870fe8fda'
+  NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;
+
+ALTER DEFAULT PRIVILEGES FOR calagorauser IN SCHEMA public GRANT
+  ALL ON tables TO calagorauser;
+ALTER DEFAULT PRIVILEGES FOR calagorauser IN SCHEMA public GRANT
+  ALL ON sequences TO calagorauser;
+#<end>
+
+#<down "1.00">
+DROP ROLE calagorauser;
+DROP DATABASE calagora;
+#<end>

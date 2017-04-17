@@ -1,0 +1,188 @@
+{{ define "title" }}
+  Calagora :: {{ title .Data.Listing.Name }}
+{{ end }}
+
+{{ define "buttons" }}
+  <div class="button-block small">
+    {{ if .Data.IsSeller }}
+      <a class="button" href="/listing/edit/{{.Data.Listing.ID}}">
+        <button>Edit</button>
+      </a>
+      <button onclick="DeleteListing({{.Data.Listing.ID}})">Delete</button>
+    {{ else }}
+      {{if .Data.Offer}}
+        <div id="offerTable">
+          <table class="il">
+            <tr>
+              <th>Your Offer</th>
+              <td>${{.Data.Offer.PriceClient}}</td>
+            </tr>
+            {{if gt (len .Data.Offer.BuyerComment) 0}}
+              <tr>
+                <th>Your Comments</th>
+                <td>{{.Data.Offer.BuyerComment}}</td>
+              </tr>
+            {{end}}
+            {{if .Data.Offer.IsCountered}}
+              <tr>
+                <th>Seller Counter</th>
+                <td>${{.Data.Offer.CounterClient}}</td>
+              </tr>
+              {{if gt (len .Data.Offer.SellerComment) 0}}
+                <tr>
+                  <th>Seller Comments</th>
+                  <td>{{.Data.Offer.SellerComment}}</td>
+                </tr>
+              {{end}}
+            {{end}}
+            <tr>
+              <th>Accepted by Seller?</th>
+              <td>{{if eq .Data.Offer.Status "offered"}}No{{else}}Yes{{end}}</td>
+            </tr>
+          </table>
+          <a class="button" href="/offer/buyer/{{.Data.Listing.ID}}">
+            <button>Edit Your Offer</button>
+          </a>
+          <a class="button" href="javascript:deleteOffer({{.Data.Offer.ID}}, 'Revoke', RemoveOfferTable)">
+            <button>Revoke Your Offer</button>
+          </a>
+        </div>
+        <div id="offerButton" style="display: none">
+          <a class="button" href="/offer/buyer/{{.Data.Listing.ID}}">
+            <button>Make An Offer</button>
+          </a>
+        </div>
+      {{else}}
+        <a class="button" href="/offer/buyer/{{.Data.Listing.ID}}">
+          <button>Make An Offer</button>
+        </a>
+      {{end}}
+    {{ end }}
+  </div>
+{{ end }}
+
+{{ define "nameAndPrice" }}
+  <h3>{{.Data.Listing.Name}}</h3>
+  <div class="small">
+    Listed by <a href="#">{{.Data.Listing.User.DisplayName}}</a>
+  </div>
+  <div class="small">
+    ${{.Data.Listing.PriceClient}}
+  </div>
+{{ end }}
+
+{{ define "properties" }}
+  <div class="description-block small">
+    <strong>Listed In{{ if not .Session }} / At{{ end }}</strong>
+    <div>
+      {{ index (index .Constants "listing.types") .Data.Listing.Type }}
+      {{ if not .Session }}
+        / {{.Data.Listing.User.PlaceName}}
+      {{end}}
+    </div>
+  </div>
+  <div class="description-block small">
+    <strong>Condition</strong>
+    <div>{{ index (index .Constants "listing.conditions") .Data.Listing.Condition }}</div>
+  </div>
+  {{ if gt (len .Data.Listing.Description) 0 }}
+    <div class="description-block small">
+      <strong>Description</strong>
+      <div class="listing-description">{{ .Data.Listing.Description }}</div>
+    </div>
+  {{ end }}
+{{ end }}
+
+{{ define "includes" }}
+  <link rel="stylesheet" type="text/css" href="/css/itemList.css" />
+  <link rel="stylesheet" type="text/css" href="/css/listingView.css" />
+{{ end }}
+
+{{ define "body" }}
+  {{ if and .Data.IsSeller (not .Data.Listing.Published) }}
+    <div class="flash-ok padded">
+      <h4>This is a Draft</h4>
+      This listing is currently a draft, which means that only you can see it.
+      To publish this listing, please click "Edit", and select the checkbox
+      in the section labeled "Draft Settings".
+    </div>
+  {{ end }}
+
+<section class="padded-view">
+  <div class="small-full grid-wide">
+
+    <div class="top">
+    <div class="top-description if-small">
+      {{ template "nameAndPrice" .}}
+    </div>
+      <div class="top-image">
+        <div class="main">
+          <div>
+            <img id="main-image" src="
+              {{- if gt (len .Data.Images) 0 -}}
+                {{- (index .Data.Images 0).URL -}}.jpg
+              {{- else -}}
+                /img/notfound.jpg
+              {{- end -}}
+            " />
+          </div>
+        </div>
+        {{- range $i, $image := .Data.Images -}}
+          <div class="thumb" onclick="LoadImage('{{$image.URL}}.jpg')">
+            <img src="{{$image.URL}}_thumb.jpg" />
+          </div>
+        {{- end -}}
+
+        <div class="unless-small">
+          {{ template "buttons" .}}
+        </div>
+
+      </div>
+      <div class="top-description unless-small">
+        {{ template "nameAndPrice" . }}
+        {{ template "properties" . }}
+      </div>
+    </div>
+    <div class="if-small small-table">
+      {{ template "properties" . }}
+      {{ template "buttons" .}}
+    </div>
+    {{ if .Data.IsSeller }}
+      <div class="offer-feed-wrapper">
+        <div class="offer-feed-header">
+          <h4>Offers Received</h4>
+        </div>
+        <div id="offer-feed">
+          <div id="offer-feed-none" class="offer-feed-instruction">
+            You have yet to receive any offers for this listing.
+          </div>
+        </div>
+        <div class="centered">
+          <div class="small-full medium-half large-third">
+            <button style="display: none" id="offer-feed-load-more">
+              Load More
+            </button>
+            <img id="offer-feed-loading" src="/img/progress.gif" />
+          </div>
+        </div>
+      </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
+{{ define "deferredIncludes" }}
+  {{ if .Session }}
+    <script type="text/javascript">
+      window.csrfToken = "{{.Session.CsrfToken}}";
+    </script>
+  {{end}}
+  <script type="text/javascript" src="/js/apis.js"></script>
+  <script type="text/javascript" src="/js/pager.js"></script>
+  <script type="text/javascript" src="/js/listingView.js"></script>
+  {{ if .Data.IsSeller }}
+    <script type="text/javascript">
+      window.GetListingsAsSeller({{.Data.Listing.ID}});
+    </script>
+  {{ end }}
+{{ end }}

@@ -1,0 +1,73 @@
+.info-center {
+  display: block;
+  margin: 2em auto 0;
+  padding: 1em;
+  width: 70%;
+}
+
+.info-center h1, .info-center h2 {
+  margin: 0 0 0.3em;
+}
+
+.info-team-block {
+  background-color: #eee;
+  border: 2px solid #ddd;
+  box-shadow: 2px 2px 4px 0 #ccc;
+  margin: 0.5em 0.2em;
+  padding: 0;
+}
+
+.info-team-block table {
+    padding: 0.3em;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.info-team-block table td.image {
+  width: 90px;
+}
+
+.info-team-block table td {
+  padding: 0.7em 0.7em 0.7em 0.7em;
+}
+
+.info-team-block table .img {
+  background-image: url(attr(data-img));
+  background-position: attr(data-pos);
+  border-radius: 9999px;
+  height: 75px;
+  width: 75px;
+}
+
+ol {
+  margin: 1em;
+  padding: 1em 1em 1em 1.4em;
+}
+
+ol li {
+  font-size: 0.8rem;
+  margin: 0 1em 1em 0;
+  text-align: justify;
+  text-transform: uppercase;
+}
+
+h3, p {
+  margin: 0.4em 0;
+}
+
+@media only screen and (max-width: 52em) {
+  .info-center {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 40em) {
+  .info-center {
+    margin-top: 0;
+    width: 100%;
+  }
+
+  .info-team-block {
+    margin: 0.5em 0;
+  }
+}

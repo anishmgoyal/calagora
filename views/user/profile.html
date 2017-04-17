@@ -1,0 +1,52 @@
+{{define "activePageSelector" -}}
+#lnk_profile
+{{- end}}
+
+{{define "title"}}
+  Calagora :: My Profile
+{{end}}
+
+{{define "body"}}
+<section class="formContainer">
+  <section class="formBox">
+    <form class="small-full medium-dthird large-third form enforceSize formPaddedLess" method="post" action="/user/profile/">
+      <div>
+        <h4>My Profile</h4>
+      </div>
+      {{if .Data.HasError }}
+        <div class="small error">{{ .Data.Error.Global }}</div>
+      {{end}}
+
+      <label>Username</label>
+      <div class="small" style="margin-bottom: 0.4em;">{{ .Data.User.Username }}</div>
+
+      <label>Display Name</label>
+      <div class="small error">
+        {{- .Data.Error.DisplayName -}}
+      </div>
+      <input type="text" name="display_name" value="{{ .Data.User.DisplayName }}" autofocus />
+
+      <label>School Email Address</label>
+      <div class="small" style="margin-bottom: 0.4em;">{{.Data.User.EmailAddress}}</div>
+
+      <label>Password</label>
+      <div class="small"><em>Leave this blank if you do not wish to change this</em></div>
+      <div class="small error">
+        {{- .Data.Error.Password -}}
+      </div>
+      <input type="password" name="password" />
+
+      <label>Confirm Password</label>
+      <div class="small"><em>Leave this blank if you do not wish to change this</em></div>
+      <div class="small error">
+        {{- .Data.Error.PasswordConfirmation -}}
+      </div>
+      <input type="password" name="password_confirmation" />
+
+      <div>
+        <button type="submit">Edit Profile</button>
+      </div>
+    </form>
+  </section>
+</section>
+{{end}}

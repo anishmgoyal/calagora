@@ -1,0 +1,39 @@
+{{define "base"}}
+  <div style="font-family: arial,sans-serif; font-size: 100%;">
+    <div style="
+        background-color: rgb(60, 100, 180);
+        margin: 0;
+        padding: 10px;
+    ">
+      <img src="https://www.calagora.com/img/calagora.png" height="20" />
+    </div>
+    <h4 style="
+        background-color: #34343b;
+        color: white;
+        margin: 0;
+        padding: 15px;
+    ">
+      {{.EmailTitle}}
+    </h4>
+    {{range $i, $paragraph := .Paragraphs}}
+      <div style="
+          background-color: {{if (even $i)}}#f1f1f4{{else}}#eaeaef{{end}};
+          color: black;
+          margin: 0;
+          padding: 15px;
+      ">
+        {{$paragraph}}
+      </div>
+    {{end}}
+    <div style="
+          background-color: #34343b;
+          color: white;
+          font-weight: bold;
+          margin: 0;
+          padding: 15px;
+    ">
+      As always, remember: Calagora will never ask you to send your password
+      or other personal information to us.
+    </div>
+  </div>
+{{end}}

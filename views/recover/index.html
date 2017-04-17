@@ -1,0 +1,37 @@
+{{define "title"}}
+  Calagora :: Password Recovery
+{{end}}
+
+{{define "body"}}
+  <section class="formContainer">
+    <section class="formBox">
+      <form class="small-full medium-dthird large-third form formPadded" method="post" action="/recover/">
+        <div>
+          <h4>Recover Password</h4>
+        </div>
+        <div class="small formBlock">
+          Please enter the email address you created an account under. We will
+          send you your username, as well as instructions on recovering your
+          password.
+        </div>
+        <label>School Email Address</label>
+        <div class="small error">
+          {{- if .Data.UserNotFound -}}
+            We don't have a user registered with that email address.
+          {{- else if .Data.HasOtherRequest -}}
+            You have already made a request to recover your password.
+            You can only make one password recovery request per 24 hour
+            period, and cannot recover your password for seven days if you
+            flag a password recovery request as spam. If you believe this
+            is an error, please contact support@calagora.com from this email
+            address for further assistance.
+          {{- end -}}
+        </div>
+        <input type="text" name="email_address" id="email_address" value="{{.Data.EmailAddress}}" autofocus />
+        <div>
+          <button type="submit">Recover Password</button>
+        </div>
+      </form>
+    </section>
+  </section>
+{{end}}

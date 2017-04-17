@@ -1,0 +1,102 @@
+{{define "title"}}
+  Calagora :: Buying
+{{end}}
+
+{{ define "activePageSelector" -}}
+#lnk_buying
+{{- end }}
+
+{{define "includes"}}
+  <link rel="stylesheet" type="text/css" href="/css/itemList.css" />
+{{end}}
+
+{{define "offerDetails"}}
+  <a href="/listing/view/{{.Listing.ID}}"><h3>{{.Listing.Name}}</h3></a>
+  <table>
+    <tr>
+      <th>Asking Price:</th>
+      <td>${{.Listing.PriceClient}}</td>
+    </tr>
+    <tr>
+      <th>Your Offer:</th>
+      <td>${{.PriceClient}}</td>
+    </tr>
+    {{if gt (len .BuyerComment) 0}}
+      <tr>
+        <th>Your Comments:</th>
+        <td>{{.BuyerComment}}</td>
+      </tr>
+    {{end}}
+    <tr>
+      <th>Status:</th>
+      <td>{{.Status | title}}</td>
+    </tr>
+    {{if .IsCountered}}
+      <tr>
+        <th>Counter:</th>
+        <td>{{.CounterClient}}</td>
+      </tr>
+      {{if gt (len .SellerComment) 0}}
+        <tr>
+          <th>Seller Comments:</th>
+          <td>{{.SellerComment}}</td>
+        </tr>
+      {{end}}
+    {{end}}
+  </table>
+{{end}}
+
+{{define "body"}}
+  <section class="padded page-header">
+    <h3 class="inline">Buying</h3>
+  </section>
+  {{if eq (len .Data.Offers) 0}}
+    <section class="padded none-found">
+      <span class="small">
+        You haven't made any offers for any listings yet.
+        When you make an offer on a listing, that offer appears
+        here as well as information about whether or not it
+        has been accepted by the seller of the listing.
+      </span>
+    </section>
+  {{else}}
+    <ul class="item-list">
+      {{range $ignore, $offer := .Data.Offers}}
+        <li id="offer-stub-{{$offer.ID}}">
+          <div class="item">
+            <div class="item-img">
+              <a href="/listing/view/{{$offer.Listing.ID}}">
+                <img src="{{$offer.Listing.ImageURL}}_thumb.jpg" />
+              </a>
+              <div class="item-desc item-desc-before small">
+                {{template "offerDetails" $offer}}
+              </div>
+              <a class="button" href="/offer/buyer/{{$offer.Listing.ID}}">
+                <button>Edit Offer</button>
+              </a>
+              {{if eq (compare $offer.Status "accepted") 0}}
+                <a class="button" href="/message/client/#conversation{{$offer.ID}}">
+                  <button>View Messages</button>
+                </a>
+              {{end}}
+              <a class="button" href="javascript:void(null)" onclick="doOfferDelete({{$offer.ID}})">
+                <button>Revoke Offer</button>
+              </a>
+            </div>
+            <div class="item-desc item-desc-after small">
+              {{template "offerDetails" $offer}}
+            </div>
+          </div>
+        </li>
+      {{end}}
+    </ul>
+  {{end}}
+{{end}}
+
+{{define "deferredIncludes"}}
+  <script type="text/javascript">
+    window.csrfToken = "{{.Session.CsrfToken}}";
+  </script>
+  <script type="text/javascript" src="/js/apis.js"></script>
+  <script type="text/javascript" src="/js/buying.js"></script>
+{{end}}

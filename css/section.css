@@ -1,0 +1,13 @@
+.loading-or-load-more {
+  text-align: center;
+}
+
+button.load-more {
+  background-color: #444;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.8em;
+  padding: 0.7em 1.1em;
+}

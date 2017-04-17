@@ -1,0 +1,122 @@
+{{define "title"}}
+  Calagora :: Selling
+{{end}}
+
+{{ define "activePageSelector" -}}
+  #lnk_selling
+{{- end }}
+
+{{define "includes"}}
+  <link rel="stylesheet" type="text/css" href="/css/itemList.css" />
+  <link rel="stylesheet" type="text/css" href="/css/selling.css" />
+{{end}}
+
+{{define "listingDetails"}}
+  <a href="/listing/view/{{.ID}}"><h3>{{.Name}}</h3></a>
+  <table>
+    <tr>
+      <th>Asking Price:</th>
+      <td>${{.PriceClient}}</td>
+    </tr>
+    <tr>
+      <th>Published?:</th>
+      <td>
+        {{if .Published}}
+          Yes
+        {{else}}
+          No, only you can see this.
+        {{end}}
+      </td>
+    <tr>
+  </table>
+{{end}}
+
+{{define "body"}}
+  <div class="feedContainer">
+    <div id="listingList" class="listingList">
+      <section class="padded page-header">
+        <h3 class="inline">Selling</h3>
+        <div class="small">
+          <a href="/listing/create/">Create a Listing</a>
+          <span class="switchLink">
+            |
+            <a href="javascript:void(null)" onclick="switchScreens()">
+              View Offer Feed
+            </a>
+          </span>
+        </div>
+        {{if gt (len .Data.Listings) 0}}
+          <div class="small">
+            To view offers you have received for a listing,
+            click on the name of that listing. Alternatively,
+            refer to the offer feed for a list of offers you have received.
+          </div>
+        {{end}}
+      </section>
+      {{if eq (len .Data.Listings) 0}}
+        <section class="padded none-found">
+          <span class="small">
+            You haven't posted any listings yet :/
+            Click <a href="/listing/create/">here</a>
+            to change that!
+          </span>
+        </section>
+      {{else}}
+        <ul class="item-list">
+          {{range $ignore, $listing := .Data.Listings}}
+            <li id="listing-stub-{{$listing.ID}}">
+              <div class="item">
+                <div class="item-img">
+                  <a href="/listing/view/{{$listing.ID}}">
+                    <img src="{{$listing.ImageURL}}_thumb.jpg" />
+                  </a>
+                  <div class="item-desc item-desc-before small">
+                    {{template "listingDetails" $listing}}
+                  </div>
+                  <a class="button" href="/listing/edit/{{$listing.ID}}">
+                    <button>Edit Listing</button>
+                  </a>
+                  <a class="button" href="javascript:void(null)" onclick="doListingDelete({{$listing.ID}})">
+                    <button>Delete Listing</button>
+                  </a>
+                </div>
+                <div class="item-desc item-desc-after small">
+                  {{template "listingDetails" $listing}}
+                </div>
+              </div>
+            </li>
+          {{end}}
+        </ul>
+      {{end}}
+    </div><!--
+    --><div id="offerFeed" class="offerFeed">
+      <section class="padded page-header">
+        <h3 class="inline">Offer Feed</h3>
+        <div class="small">
+          <span class="switchLink">
+            <a href="javascript:void(null)" onclick="switchScreens()">
+              View Your Listings
+            </a>
+          </span>
+        </div>
+        <div class="small">
+          This is a list of offers people have made on your listings.
+          Click on an offer to accept, counter, or reject it.
+        </div>
+      </section>
+      <div id="offerList"></div>
+      <div class="padded centered">
+        <button id="offer-feed-more-btn">Load More</button>
+      </div>
+    </div>
+  </div>
+{{ end }}
+
+{{define "deferredIncludes"}}
+  <script type="text/javascript">
+    window.csrfToken = "{{.Session.CsrfToken}}";
+  </script>
+  <script type="text/javascript" src="/js/apis.js"></script>
+  <script type="text/javascript" src="/js/pager.js"></script>
+  <script type="text/javascript" src="/js/selling.js"></script>
+{{end}}

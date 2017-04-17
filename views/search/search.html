@@ -1,0 +1,65 @@
+{{define "title"}}
+  Calagora :: Search
+{{end}}
+
+{{define "includes"}}
+<link rel="stylesheet" type="text/css" href="/css/search.css" />
+{{end}}
+
+{{define "body"}}
+  <section class="padded">
+    <h4>Search Calagora</h4>
+    <form id="searchForm"
+      action="/search/" method="get" class="form" style="padding: 0">
+      <div class="searchFormPanel">
+        <input class="searchBar" type="text" name="q" id="q_lg" value="{{.Data.Query}}" />
+        <i class="searchButton fi-magnifying-glass"
+          onclick="document.getElementById('searchForm').submit()"></i>
+      </div>
+    </form>
+
+    {{if gt (len .Data.Listings) 0}}
+      <div class="small">
+        Showing {{.Data.StartOffset}}-{{.Data.EndOffset}} of
+        {{if (ge .Data.Page .Data.OutOf)}}
+          {{.Data.EndOffset}}
+        {{else}}
+          about {{.Data.MaxTotal}}
+        {{end}}
+        result
+        {{- if gt (.Data.EndOffset) 1 -}}
+        s
+        {{- end -}}
+        .
+      </div>
+      {{range $index, $listing := .Data.Listings -}}
+        <div class="image-block"
+          onclick="window.location.href='/listing/view/{{$listing.ID}}'">
+          <div class="image">
+            <img src="{{$listing.ImageURL}}.jpg" />
+          </div>
+          <div class="listing-name">{{$listing.Name}}</div>
+          <div class="listing-price">${{$listing.PriceClient}}</div>
+        </div>
+      {{- end}}
+
+      <div>
+        <div id="pager" class="small pager">
+        </div>
+      </div>
+    {{else}}
+      <div class="small">
+        Your query, "{{.Data.Query}}", returned no results. Please check your
+        spelling and try again.
+      </div>
+    {{end}}
+  </section>
+{{end}}
+
+{{define "deferredIncludes"}}
+  <script type="text/javascript" src="/js/lightPager.js"></script>
+  <script type="text/javascript">
+    lightPager(document.getElementById("pager"), "{{.Data.Query}}",
+      1, {{.Data.Page}}, {{.Data.OutOf}});
+  </script>
+{{end}}

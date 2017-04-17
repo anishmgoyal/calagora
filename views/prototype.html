@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calagora :: Exchange on the Banks, Easy on the Bank</title>
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans" />
+  <link rel="stylesheet" type="text/css" href="https://www.rutgersxchange.com/assets/imageUploader.css" />
+  <link rel="stylesheet" type="text/css" href="/css/fi/foundation-icons.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+   * {
+     box-sizing: border-box;
+   }
+
+    html, body {
+      font-family: "Open Sans", Verdana;
+      font-size: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      width: 100%;
+      z-index: 1;
+    }
+
+    .pane {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      flex: 1;
+      display: flex;
+    }
+
+    .container div {
+      vertical-align: top;
+    }
+
+    .contentpane {
+      width: 85%;
+    }
+
+    .masthead {
+      background-color: #bbea78;
+      background-color: #ea7878;
+      z-index: 1;
+    }
+
+    nav {
+      background-color: #5078C8;
+      background: linear-gradient(#537ACA, #5078C8);
+      box-shadow: 0 1px 4px #444;
+      box-sizing: border-box;
+      color: #fafffd;
+      display: table;
+      font-size: 0.8em;
+      font-weight: bold;
+      padding: 0.75em 1em;
+      position: relative;
+      width: 100%;
+      z-index: 5;
+    }
+
+    nav .nav-link {
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-block;
+      padding: 0.3em 0.7em;
+    }
+
+    nav .nav-link i {
+      font-size: 1.2em;
+    }
+
+    nav .nav-link:hover {
+      background-color: #4068B8;
+    }
+
+    nav .nav-logo, nav .nav-links {
+      display: table-cell;
+      width: 50%;
+      vertical-align: middle;
+    }
+
+    nav .nav-links {
+      text-align: right;
+    }
+
+    nav.fixed {
+      position: fixed;
+      top: 0;
+    }
+
+    .padded {
+      padding: 15px;
+    }
+
+    h4 {
+      margin: 0 0 5px;
+    }
+
+    h4.inline {
+      display: inline-block;
+    }
+
+    .sidebar {
+      background-color: #242629;
+      box-sizing: border-box;
+      padding-top: 0.1em;
+      position: relative;
+      text-align: right;
+      width: 15%;
+    }
+
+    .sidebar a {
+      box-sizing: border-box;
+      color: #eaecef;
+      display: inline-block;
+      font-size: 0.7em;
+      font-weight: bold;
+      letter-spacing: 0.3em;
+      padding: 1.1em 1em;
+      text-decoration: none;
+      text-transform: uppercase;
+      width: 100%;
+    }
+    .sidebar a.active {
+      border-left: 10px solid #fa824c;
+      background-color: #1e2023;
+    }
+    .sidebar a:hover {
+      background-color: #fa824c;
+      color: black;
+    }
+
+
+    .sidebar .sidebar-close {
+      margin: 0;
+      padding: 0;
+      text-align: right;
+    }
+    .sidebar .sidebar-close a {
+      border: none;
+      display: inline-block;
+      font-size: 1.3em;
+      letter-spacing: 0px;
+      padding: 0.3em 0.8em;
+      text-align: center;
+      vertical-align: top;
+      width: auto;
+    }
+
+    .sidebar > div {
+      position: relative;
+    }
+
+    .sidebar > div .sidebar-dropdown {
+      background-color: rgba(36, 38, 41, 0.95);
+      display: none;
+      left: 100%;
+      position: absolute;
+      top: 0;
+      width: auto;
+      white-space: nowrap;
+      z-index: 999;
+    }
+
+    .sidebar > .sidebar-has-dropdown .sidebar-dropdown a {
+      border: none;
+      display: block;
+      padding: 1em 1em;
+      width: auto;
+    }
+
+    .sidebar > .sidebar-has-dropdown:hover .sidebar-dropdown,
+    .sidebar > .sidebar-has-dropdown .sidebar-dropdown-focus
+    {
+      display: block;
+    }
+
+    .main-content a {
+      color: blue;
+    }
+
+    .small {
+      font-size: 0.8em;
+    }
+
+    .product-name {
+      font-weight: bold;
+      font-size: 0.8em;
+    }
+
+    .product-price {
+      font-weight: bold;
+      font-size: 0.7em;
+    }
+
+    .image-block {
+      cursor: pointer;
+      display: inline-table;
+      float: left;
+      width: 16.6667%;
+      padding: 5px;
+      margin: 0;
+      text-align: center;
+    }
+
+    .image-block .image {
+      background-color: #f0f0ee;
+      width: 100%;
+      padding-bottom: 100%;
+      position: relative;
+    }
+
+    .image-block .image img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    footer a {
+      color: #d8ded0;
+      text-transform: uppercase;
+    }
+
+    .footerTop {
+      background-color: #fa824c;
+      background-color: #1e1e1f;
+      color: white;
+    }
+
+    .footerBottom {
+      background-color: #da622c;
+      background-color: #0e0e0f;
+      color: white;
+      font-size: 0.7em;
+    }
+
+    .reset {
+      clear: both;
+    }
+  </style>
+
+  <style>
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1001;
+    }
+
+    .dialog {
+      border: 0.4em solid rgba(0, 0, 0, 0.6);
+      border-radius: 0.3em;
+      font-size: 0.8em;
+      font-weight: bold;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 30em;
+      max-width: 95%;
+      background-color: white;
+      transform: translate(-50%, -50%);
+      padding: 0;
+      margin: 0;
+    }
+
+    .dialog-title {
+      background-color: #dbdbdf;
+      border-bottom: 0.2em solid #bbbbbf;
+      margin: 0;
+      padding: 0.4em 1em;
+      text-shadow: 1px 1px 0 #ccc;
+    }
+
+    .dialog-pane {
+      padding: 0.7em 1em;
+      font-weight: normal;
+      min-height: 12em;
+    }
+
+    .dialog-button {
+      color: white;
+      text-shadow: 1px 1px 2px #333;
+      text-align: center;
+      background-color: #dd4444;
+      border-bottom: 2px solid #cd3434;
+      padding: 3px 10px;
+    }
+
+    @media only screen and (min-width: 50.0625em) and (max-width: 64em) {
+      .image-block {
+        width: 20%;
+      }
+      .sidebar {
+        width: 20%;
+      }
+      .contentpane {
+        width: 80%;
+      }
+    }
+
+    @media only screen and (min-width: 40.0625em) and (max-width: 50em) {
+      .sidebar {
+        width: 25%;
+      }
+      .contentpane {
+        width: 75%;
+      }
+      .image-block {
+        width: 25%;
+      }
+    }
+
+    @media only screen and (min-width: 30.0625em) and (max-width: 40em) {
+      .image-block {
+        width: 33.3333%;
+      }
+    }
+
+    @media only screen and (max-width: 30em) {
+      .image-block {
+        width: 50%;
+      }
+    }
+
+    @media only screen and (min-width: 40.0625em) {
+         .if-small {
+           display: none !important;
+         }
+    }
+
+    @media only screen and (max-width: 40em) {
+      .menuOpen {
+        overflow-y: hidden;
+      }
+      .footerTop {
+        display: none;
+      }
+      .footerBottom > div > div {
+        border: none;
+        text-align: left;
+        margin: 0.5em 0;
+        width: 100%;
+      }
+      .footerBottom > div {
+        flex-direction: column;
+      }
+      .sidebar, .sidebar-dropdown {
+        padding-top: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: auto;
+        z-index: -2000;
+        min-height: 100vh;
+        text-align: left;
+        display: block;
+        opacity: 0;
+        transform: scale(0.7, 0.7);
+        -webkit-transition: opacity 0.25s, transform 0.25s;
+        transition: opacity 0.25s, transform 0.25s;
+      }
+      .sidebar.sidebar-mobile-visible {
+        display: block;
+        opacity: 1;
+        transform: scale(1.0, 1.0);
+        z-index: 2000;
+      }
+      .sidebar > .sidebar-has-dropdown .sidebar-dropdown-focus {
+        display: block;
+        position: fixed;
+        top: 2.5em;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow-y: scroll;
+        opacity: 1;
+        transform: scale(1, 1);
+      }
+      .sidebar a {
+        border-left: 10px solid transparent;
+      }
+      .contentpane {
+        width: 100%;
+      }
+      nav {
+        padding: 0.8em 1em;
+      }
+    }
+  </style>
+  <script type="text/javascript">
+    window.onkeypress = function(e)
+    {
+      if(String.fromCharCode(e.which) == 'h')
+      {
+        var elems = document.getElementsByClassName("overlay");
+        for(var i = 0; i < elems.length; ++i)
+        {
+          var elem = elems[i];
+          elem.parentNode.removeChild(elem);
+        }
+      }
+    };
+
+    window.onclick = function(e)
+    {
+      e = e || window.event;
+      var target = e.target || e.srcElement;
+
+      var isFocus = false;
+      while(target && target.className != undefined)
+      {
+        if(target.className.indexOf("sidebar-dropdown-focus") > -1)
+        {
+          isFocus = true;
+          break;
+        }
+        else if(target.className.indexOf("sidebar-has-dropdown") > -1)
+        {
+          return; // Let the sidebar scripts handle this
+        }
+        else
+        {
+            target = target.parentNode;
+        }
+      };
+
+      if(!isFocus)
+      {
+        var elems = document.getElementsByClassName("sidebar-dropdown-focus");
+        for(var i = 0; i < elems.length; ++i)
+        {
+          var elem = elems[i];
+          var className = elem.className;
+          className = className.replace("sidebar-dropdown-focus", "");
+          elem.className = className;
+        }
+      }
+    };
+
+    window.onload = function()
+    {
+        elems = document.getElementsByClassName("fi-list");
+        for(i = 0; i < elems.length; ++i)
+        {
+          elem = elems[i].parentNode;
+          elem.onclick = showMenu;
+        }
+
+        elems = document.getElementsByClassName("sidebar-close-lnk");
+        for(i = 0; i < elems.length; ++i)
+        {
+          elem = elems[i];
+          elem.onclick = hideMenu;
+        }
+
+        elems = document.getElementsByClassName("sidebar-has-dropdown");
+        for(i = 0; i < elems.length; ++i)
+        {
+          elem = elems[i];
+          var childNodes = elem.children;
+          elem.onmousedown = function(childNodes, e)
+          {
+            for(var i = 0, l = childNodes.length; i < l; ++i)
+            {
+              var node = childNodes[i];
+              if(node.className.indexOf("sidebar-dropdown-focus") > -1)
+              {
+                if(e.preventDefault)
+                {
+                  e.preventDefault();
+                }
+                else
+                {
+                  return false;
+                }
+              }
+            }
+          }.bind(window, childNodes);
+          elem.onclick = function(childNodes, e)
+          {
+            e = e || window.event;
+            var target = e.target || e.srcElement;
+
+            while(target && target.className != undefined)
+            {
+              if(target.className.indexOf("sidebar-dropdown-close") > -1)
+              {
+                break;
+              }
+              if(target.className.indexOf("sidebar-dropdown") > -1)
+              {
+                return;
+              }
+
+              target = target.parentNode;
+            }
+
+            for(var i = 0, l = childNodes.length; i < l; ++i)
+            {
+              var node = childNodes[i];
+              if(node.className.indexOf("sidebar-dropdown") > -1)
+              {
+                if(node.className.indexOf("sidebar-dropdown-focus") > -1)
+                {
+                  node.className = node.className.replace(
+                    "sidebar-dropdown-focus", "");
+                }
+                else
+                {
+                  var elems = document.getElementsByClassName(
+                    "sidebar-dropdown-focus");
+                  for(var j = 0, ll = elems.length; j < ll; ++j)
+                  {
+                    var elem = elems[j];
+                    elem.className = elem.className.replace("sidebar-dropdown-focus", "");
+                  }
+                  node.className = node.className + " sidebar-dropdown-focus";
+                }
+              }
+            }
+          }.bind(window, childNodes);
+        }
+    };
+
+    function showMenu()
+    {
+      var elems = document.getElementsByClassName("sidebar");
+      if(elems.length > 0)
+      {
+        /*var sidebar = elems[0];
+        var timestamp = ("performance" in window)?
+          performance.now() : (new Date()).getTime();
+
+        sidebar.style.display = "block";
+        sidebar.style.overflowY = "scroll";
+        fadeIn(sidebar, 0, timestamp);*/
+        var sidebar = elems[0];
+        sidebar.className += " sidebar-mobile-visible";
+      }
+    }
+
+    function hideMenu()
+    {
+      var elems = document.getElementsByClassName("sidebar");
+      if(elems.length > 0)
+      {
+        var sidebar = elems[0];
+        sidebar.className = sidebar.className.replace(
+          "sidebar-mobile-visible", "");
+        /*var timestamp = ("performance" in window)? performance.now() :
+          (new Date()).getTime();
+
+        fadeOut(sidebar, 1, timestamp);*/
+      }
+      //sidebar.style.overflowY = "hidden";
+      //document.body.className = "";
+      //document.documentElement.className = "";
+    }
+
+    function fadeIn(elem, op, prevTimestamp, currTimestamp)
+    {
+      var frameStepCoeff;
+      if(arguments.length == 3)
+      {
+        currTimestamp = prevTimestamp + fadeIn.step;
+        frameStepCoeff = 1;
+      }
+      else
+      {
+        var elapsed = currTimestamp - prevTimestamp;
+        frameStepCoeff = elapsed / fadeIn.step;
+      }
+
+      op += (0.1 * frameStepCoeff);
+      if(op >= 0.8)
+      {
+        elem.style.opacity = "1";
+        elem.style.transform = "";
+        document.body.className = "menuOpen";
+        document.documentElement.className = "menuOpen";
+      }
+      else
+      {
+        var scale = op + ", " + op;
+        elem.style.opacity = op + "";
+        elem.style.transform = "scale(" + scale + ")";
+        if("requestAnimationFrame" in window)
+        {
+          window.requestAnimationFrame(fadeIn.bind(
+            window, elem, op, currTimestamp
+          ));
+        }
+        else {
+          setTimeout(fadein.bind(
+            window, elem, op, currTimestamp
+          ), fadeIn.step);
+        }
+      }
+    }
+    fadeIn.step = 20;
+
+    function fadeOut(elem, op, prevTimestamp, currTimestamp)
+    {
+      var frameStepCoeff;
+      if(arguments.length == 3)
+      {
+        currTimestamp = prevTimestamp + fadeOut.step;
+        frameStepCoeff = 1;
+      }
+      else
+      {
+        var elapsed = currTimestamp - prevTimestamp;
+        frameStepCoeff = elapsed / fadeOut.step;
+      }
+
+      op -= (0.1 * frameStepCoeff);
+      if(op <= 0.3)
+      {
+        elem.style.display = "";
+        elem.style.opacity = 1.0 + "";
+        elem.style.transform = "";
+        elem.style.overflowY = "";
+      }
+      else
+      {
+        var scale = op + ", " + op;
+        elem.style.opacity = op + "";
+        elem.style.transform = "scale(" + scale + ")";
+        if("requestAnimationFrame" in window)
+        {
+          window.requestAnimationFrame(fadeOut.bind(
+            window, elem, op, currTimestamp
+          ));
+        }
+        else {
+          setTimeout(fadeOut.bind(
+            window, elem, op, currTimestamp
+          ), fadeOut.step);
+        }
+      }
+    }
+    fadeOut.step = 20;
+  </script>
+</head>
+<body>
+  <div class="overlay">
+    <div class="dialog">
+      <div class="dialog-title">
+        Example Dialog 101
+      </div>
+      <div class="dialog-pane">
+        This is an example dialog. It shows how the new UI can have a more sleek,
+        modern look than the old "dark-app" theme. It is also a step beyond the
+        cancelled "ice-pick" theme.
+      </div>
+      <div class="dialog-button">
+        Okay
+      </div>
+    </div>
+  </div>
+  <div class="pane">
+    <nav>
+      <div class="nav-logo">
+        Calagora
+      </div><div class="nav-links">
+        <div class="nav-link">
+          <i class="fi-magnifying-glass"></i>
+        </div>
+        <div class="nav-link">
+          <i class="fi-torso"></i>
+        </div>
+        <div class="nav-link if-small">
+          <i class="fi-list"></i>
+        </div>
+      </div>
+    </nav>
+    <nav class="fixed">
+      <div class="nav-logo">
+        Calagora
+      </div><div class="nav-links">
+        <div class="nav-link">
+          <i class="fi-magnifying-glass"></i>
+        </div>
+        <div class="nav-link">
+          <i class="fi-torso"></i>
+        </div>
+        <div class="nav-link if-small">
+          <i class="fi-list"></i>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="sidebar">
+        <div class="sidebar-close if-small">
+          <a href="#" class="sidebar-close-lnk"><i class="fi-x"></i></a>
+        </div>
+        <div><a class="active" href="#">Home</a></div>
+        <div class="sidebar-has-dropdown">
+          <a href="#">Listings &#x203a;</a>
+          <div class="sidebar-dropdown">
+            <a class="if-small sidebar-dropdown-close" href="#">
+              &#x2039; Go Back
+            </a>
+            <a href="#">All Listings</a>
+            <a href="#">Textbooks</a>
+            <a href="#">Electronics</a>
+            <a href="#">Home Goods</a>
+            <a href="#">Automotive</a>
+            <a href="#">Clothing</a>
+            <a href="#">Athletic Equipment</a>
+            <a href="http://www.google.com">Miscellaneous</a>
+          </div>
+        </div>
+        <div><a href="#">Buying</a></div>
+        <div><a href="#">Selling</a></div>
+        <div><a href="#">Messages</a></div>
+        <div><a href="#">Login</a></div>
+        <div><a href="#">Register</a></div>
+      </div><div class="contentpane">
+        <div class="main-content">
+          <section class="padded">
+            <div>
+              <h4 class="inline">Recently Added</h4>
+              <a class="small" href="#">see more</a>
+            </div>
+            <div class="image-block">
+              <div class="image">
+                <img src="https://www.rutgersxchange.com/assets/user/upload/1/dea06728-82db-41cc-98d5-092c5fa64fec/115"/>
+              </div>
+              <div class="product-name">Principles of Astrophysics, Charles Keeton</div>
+              <div class="product-price">$45.00</div>
+            </div>
+            <div class="image-block">
+              <div class="image">
+                <img src="https://www.rutgersxchange.com/assets/notfound.png">
+              </div>
+              <div class="product-name">Principles of Astrophysics, Charles Keeton</div>
+              <div class="product-price">$45.00</div>
+            </div>
+            <div class="image-block">
+              <div class="image">
+                <img src="https://www.rutgersxchange.com/assets/notfound.png"/>
+              </div>
+              <div class="product-name">Principles of Astrophysics, Charles Keeton</div>
+              <div class="product-price">$45.00</div>
+            </div>
+          </section>
+        </div>
+        <div class="reset">&nbsp;</div>
+    </div>
+  </div>
+  <footer class="footerTop" style="clear: both">
+    <div class="padded small" style="text-align: center">
+      As always, remember: Calagora will never ask you to send us your
+      information or password to us.
+    </div>
+  </footer>
+</div>
+<footer class="footerBottom">
+  <div class="padded" style="display: flex">
+    <div style="text-align: right; border-right: 2px solid #0a0a0a;
+          padding: 0 10px; width: 20%">
+      <div><a href="#">About Us</a></div>
+      <div><a href="#">Contact Us</a></div>
+      <div><a href="#">Terms of Use</a></div>
+      <div><a href="#">Help</a></div>
+    </div>
+    <div style="flex: 1; padding: 0 10px;
+      border-right: 2px solid #0a0a0a;">
+      <!--Follow us on social media!-->
+    </div>
+    <div style="padding: 0 10px; width: 20%;">
+      &copy; Calagora 2016 to Present
+    </div>
+  </div>
+</footer>
+</body>
+</html>

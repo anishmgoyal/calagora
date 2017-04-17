@@ -1,0 +1,77 @@
+
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1001;
+}
+
+.dialog {
+  background-color: white;
+  border: 0.4em solid rgba(0, 0, 0, 0.8);
+  border-radius: 0.3em;
+  font-size: 0.8em;
+  font-weight: bold;
+  left: 50%;
+  margin: 0;
+  max-height: 90vh;
+  max-width: 90vw;
+  padding: 0;
+  position: absolute;
+  table-layout: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 30em;
+}
+
+.dialog-title {
+  background-color: #dbdbdf;
+  border-bottom: 0.2em solid #bbbbbf;
+  padding: 0.4em 0.7em;
+  text-shadow: 1px 1px 0 #ccc;
+}
+
+.dialog-pane {
+  display: block;
+  font-weight: normal;
+  height: 10.3em;
+  max-height: 40vh;
+  overflow-y: auto;
+  padding: 0.3em 0.7em;
+}
+
+.dialog-button {
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.3em 0.7em;
+  text-shadow: 1px 1px 2px #333;
+  text-align: center;
+  background-color: #dd4444;
+  border-bottom: 2px solid #cd3434;
+}
+
+.dialog-button.dialog-alt {
+  background-color: #cbcbcf;
+  border-color: #aaaaaf;
+  color: black;
+  text-shadow: none;
+}
+
+.toast {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  cursor: pointer;
+  left: 0;
+  font-size: 0.7em;
+  font-weight: bold;
+  padding: 1em;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 100%;
+  z-index: 31;
+}

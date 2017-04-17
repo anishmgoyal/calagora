@@ -1,0 +1,5 @@
+** PriceClient / CounterClient
+
+  When validating listings and offers, the validate function should handle
+  conversion between server and client price formats. This is currently done
+  on the controller's side.

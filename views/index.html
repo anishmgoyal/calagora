@@ -1,0 +1,84 @@
+{{define "activePageSelector" -}}
+#lnk_home
+{{- end}}
+
+{{define "includes"}}
+  <link rel="stylesheet" type="text/css" href="/css/index.css" />
+{{end}}
+
+{{define "body"}}
+  {{ if .Data }}
+    <div class="{{if .Data.Error -}}
+          flash-error
+        {{- else -}}
+          flash-ok
+        {{- end}} padded">
+      <h4>{{ .Data.FlashTitle }}</h4>
+      {{ .Data.Flash }}
+    </div>
+  {{end}}
+
+  {{if not .Session}}
+    <div class="top-image">
+      <div>
+        <img src="/img/calagora.png" />
+      </div>
+      <div class="top-constrain small-half">
+        <button onclick="window.location.href = '/user/login/;'">
+          LOG IN
+        </button>
+      </div><div class="top-constrain small-half">
+        <button onclick="window.location.href = '/user/register/;'">
+          SIGN UP
+        </button>
+      </div>
+    </div>
+  {{end}}
+<!--
+  {{ if not .Session }}
+    <section class="about-section">
+      <h3 class="about-title">Welcome to Calagora</h3>
+      <p class="about-para">
+        We're here to help you buy and sell your used stuff to other people
+        on your campus quickly and easily.
+        To get started, <a href="/user/register/">sign up</a>!
+      </p>
+      <p class="about-para">
+        Until then, feel free to browse listings posted by users from all
+        campuses that Calagora is on.
+        Or you can read more about us <a href="/info/about/">here</a>.
+      </p>
+    </section>
+  {{end}}-->
+
+  <section class="padded {{ if not .Session -}}public-feed{{- end -}}" id="recent-list">
+    <div>
+      <h4 class="inline">
+        {{- if not .Session -}}
+          Public Feed
+        {{- else -}}
+          Recently Added
+        {{- end -}}
+      </h4>
+      <a class="small" href="/listing/section/">see more</a>
+    </div>
+    <img src="/img/progress.gif" id="recent-progress" />
+  </section>
+
+  {{ if .Session }}
+    <section class="padded" id="my-listing-list">
+      <div>
+        <h4 class="inline">My Recent Listings</h4>
+        <a class="small" href="/selling/">see more</a>
+      </div>
+      <div class="small">
+        *Listings with an asterisk after their names are drafts
+      </div>
+      <img src="/img/progress.gif" id="my-listing-progress" />
+    </section>
+  {{ end }}
+{{end}}
+
+{{define "deferredIncludes"}}
+  <script type="text/javascript" src="/js/listingBlocks.js"></script>
+{{end}}

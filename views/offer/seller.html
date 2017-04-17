@@ -1,0 +1,74 @@
+{{define "title"}}
+  Calagora :: {{ title .Data.Listing.Name }}
+{{end}}
+
+{{define "body"}}
+<section class="formContainer">
+  <section class="formBox">
+    <form class="small-full medium-half large-third form enforceSize formPaddedLess" method="post" action="/offer/seller/{{ .Data.Offer.ID }}">
+      <input type="hidden" name="csrfToken" value="{{ .Session.CsrfToken }}" />
+      <input type="hidden" name="offer_id" value="{{ .Data.Offer.ID }}" />
+
+      <div class="small-full grid-wide formBlock">
+        <h4>{{ title .Data.Listing.Name }}</h4>
+      </div>
+      {{if .Data.HasError }}
+        <div class="grid-wide small error">
+          {{- .Data.Error.Global -}}
+        </div>
+      {{end}}
+
+      <div class="small-full grid-wide formBlock">
+        <label>Asking Price</label>
+        <div class="small">
+          You are asking for <strong>${{ .Data.Listing.PriceClient }}</strong>
+          for this item.
+        </div>
+      </div>
+
+      <div class="small-full grid-wide formBlock">
+        <label>Buyer's Offer</label>
+        <div class="small">
+          The buyer offered you
+          <strong>${{ .Data.Offer.PriceClient }}</strong>
+          for this item.
+        </div>
+      </div>
+
+      {{ if gt (len .Data.Offer.BuyerComment) 0 }}
+        <div class="small-full grid-wide formBlock">
+          <label>Comments from Buyer</label>
+          <div class="small">
+            {{- .Data.Offer.BuyerComment -}}
+          </div>
+        </div>
+      {{ end }}
+
+
+      <div class="small-full grid-wide formBlock">
+        <label>Your Counter (USD)</label>
+        <div class="small error">
+          {{- .Data.Error.Counter -}}
+        </div>
+        <input type="text" name="counter" value="{{ .Data.Offer.CounterClient }}" autofocus />
+      </div>
+
+      <div class="small-full grid-wide formBlock">
+        <label>Comments for Buyer (Optional)</label>
+        <div class="small error">
+          {{- .Data.Error.SellerComment -}}
+        </div>
+        <textarea class="char_140" maxlength="140" name="seller_comment">
+          {{- .Data.Offer.SellerComment -}}
+        </textarea>
+      </div>
+      <div class="small-full grid-wide">
+        <button type="submit">Counter Offer</button>
+      </div>
+      <div class="small grid-wide">
+        <a href="/listing/view/{{ .Data.Listing.ID }}">Return to Listing</a>
+      </div>
+    </form>
+  </section>
+</section>
+{{end}}

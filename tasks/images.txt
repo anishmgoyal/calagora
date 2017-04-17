@@ -1,0 +1,12 @@
+** First Image
+
+  Users should be able to choose the most prominent image associated
+  with their listing
+
+** Drag and Drop
+
+  The uploader should support drag and drop
+
+** Progress Bar Colors
+
+  The colors of the progress bar are not good and should be changed.

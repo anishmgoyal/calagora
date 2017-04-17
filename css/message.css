@@ -1,0 +1,233 @@
+/* Overrides and extensions to main.css */
+.content-body {
+  height: 100%;
+  position: relative;
+  min-height: 300px;
+}
+
+/* Basic layout */
+
+.messaging-container {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.messaging-sidebar, .messaging-body {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.messaging-sidebar {
+  background-color: #12131a;
+  border-left-color: #2f2f34;
+  border-right-color: #a2a5a4;
+  border-style: solid;
+  border-width: 0 4px;
+  height: 100%;
+  overflow-y: scroll;
+  width: 25%;
+}
+
+.messaging-body {
+  color: #232426;
+  width: 75%;
+  height: 100%;
+}
+
+.messaging-body.no-convo {
+  background-color: #f4f4f4;
+  text-align: center;
+}
+
+/* Sidebar View Layout */
+
+.messaging-sidebar a {
+  text-decoration: none;
+}
+
+.messaging-sidebar-conversation {
+  border-bottom: 2px solid #161921;
+  color: #e6e6e6;
+  cursor: pointer;
+  padding: 1em;
+}
+
+.messaging-sidebar-conversation:hover, .messaging-sidebar-active {
+  background-color: #33333f;
+  border-color: #33333f;
+}
+
+.messaging-sidebar-conversation h5, .messaging-sidebar-conversation div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.messaging-sidebar-conversation h5 {
+  margin: 0;
+}
+
+.messaging-sidebar-instruct {
+    color: white;
+    padding: 1em;
+    word-wrap: break-word;
+}
+
+.messaging-sidebar-instruct a {
+  color: white;
+  text-decoration: underline;
+}
+
+.messaging-sidebar-unread-count {
+  font-size: 0.7em;
+  font-weight: bold;
+}
+
+/* Message View Layout */
+.conversation-container {
+  display: table;
+  height: 100%;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.conversation-row {
+  display: table-row;
+}
+
+.conversation-cell {
+  display: table-cell;
+}
+
+.conversation-title {
+  background-color: #eee;
+  font-weight: bold;
+  padding: 1.5em 1em;
+}
+
+.conversation-button {
+  background-color: #dcdcdc;
+  border: none;
+  color: #d44;
+  cursor: pointer;
+  font-size: 0.75em;
+  font-weight: bold;
+  padding: 0.4em;
+  text-align: center;
+}
+
+.conversation-button:hover {
+  background-color: #d0d0d0;
+}
+
+.conversation {
+  height: 100%;
+  vertical-align: top;
+}
+
+.conversation-scroll-container {
+  height: 100%;
+  position: relative;
+}
+
+.conversation-scroll {
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  overflow-y: scroll;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.conversation-message {
+  padding: 1em 1em 0;
+}
+
+.conversation-message-sender {
+  color: #d44;
+  font-weight: bold;
+}
+
+.conversation-message-timestamp {
+  color: #666;
+}
+
+.conversation-bottom {
+  border-top: 2px solid #e8e8e8;
+}
+
+.conversation-bottom input[type=text] {
+  border: 1px solid #a0a0a0;
+  border: none;
+  padding: 1em 4em 1em 1em;
+  outline: none;
+  width: 100%;
+}
+
+.conversation-bottom button {
+  background-color: transparent;
+  border: 0;
+  color: #f44;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: bold;
+  height: 100%;
+  margin-left: -4em;
+  margin-bottom: 0;
+  outline: none;
+  padding: 0;
+  width: 4em;
+}
+
+/* Misc */
+.messaging-notification {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  cursor: pointer;
+  left: 0;
+  font-size: 0.7em;
+  font-weight: bold;
+  padding: 1em;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 31;
+}
+
+.messaging-notification-title {
+  text-transform: capitalize;
+}
+
+/* Responsive Layout */
+
+@media only screen and (max-width: 64em) {
+  .messaging-sidebar {
+    width: 45%;
+  }
+  .messaging-body {
+    width: 55%;
+  }
+}
+
+@media only screen and (max-width: 40em) {
+  .messaging-container {
+    position: static;
+    height: 100%;
+  }
+  .messaging-sidebar {
+    border: none;
+    box-shadow: 0 1px 0 1px #12131a;
+    overflow-y: visible;
+  }
+  .messaging-sidebar, .messaging-body {
+    display: none;
+  }
+  .messaging-sidebar.active, .messaging-body.active {
+    display: inline-block;
+    width: 100%;
+  }
+}

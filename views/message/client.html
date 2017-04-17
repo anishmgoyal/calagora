@@ -1,0 +1,87 @@
+{{ define "activePageSelector" -}}
+  #lnk_messages
+{{- end }}
+
+{{define "title"}}
+  Calagora :: Messages
+{{end}}
+
+{{define "includes"}}
+  <link rel="stylesheet" type="text/css" href="/css/message.css" />
+{{end}}
+
+{{define "body"}}
+
+  <div class="messaging-container">
+    <div id="messaging-sidebar" class="messaging-sidebar active">
+      <div id="instr_none_to_display_mobile" class="if-small messaging-sidebar-instruct" style="display: none">
+        <div>You currently have no conversations.</div>
+        <div>Conversations are started when an offer you
+        place for a listing is accepted, or when you accept an offer placed on
+        one of your listings.</div>
+        <br />
+        <div>
+          Click <a href="/">here</a> to go home.
+        </div>
+      </div>
+    </div><!--
+    --><div id="placeholder-conversation-container" class="messaging-body no-convo">
+      <section class="padded">
+        <br />
+        <div id="instr_none_to_display" style="display: none">
+          <div>You currently have no conversations.</div>
+          <div>Conversations are started when an offer you
+          place for a listing is accepted, or when you accept an offer placed on
+          one of your listings.</div>
+        </div>
+        <div id="instr_click_to_chat" style="display: none">
+          <div>Click on a conversation on the left to chat.</div>
+        </div>
+        <div id="instr_none_selected_progress">
+          <img src="/img/progress.gif" />
+        </div>
+      </section>
+    </div><!--
+    --><div id="main-conversation-container" class="messaging-body" style="display: none">
+      <div class="conversation-container">
+        <div class="conversation-row" id="conversation-toprow">
+          <div class="conversation-title conversation-cell small">
+            <div id="conversation-title" class="ellipsis">
+              {{title "principles of Astrophysics"}}
+            </div>
+          </div>
+        </div><div class="conversation-row conversation-button-bar" id="conversation-buttonrow">
+          <a href="#list"><button
+            class="small-third if-small conversation-button">Go Back</button></a><!--
+          --><a href="javascript:void(null)" onclick="finalizeOffer()" class="if-seller"><button
+            class="small-third medium-half conversation-button">Finalize Sale</button></a><!--
+          --><a href="javascript:void(null)" onclick="deleteOffer('Reject')" class="if-seller"><button
+            class="small-third medium-half conversation-button">Reject Sale</button></a><!--
+          --><a href="javascript:void(null)" onclick="editOffer()" class="if-buyer"><button
+            class="small-third medium-half conversation-button">Edit Offer</button></a><!--
+          --><a href="javascript:void(null)" onclick="deleteOffer('Revoke')" class="if-buyer"><button
+            class="small-third medium-half conversation-button">Revoke Offer</button></a>
+        </div><div class="conversation-row conversation">
+          <div class="conversation-cell small">
+            <div class="conversation-scroll-container">
+              <div id="message-list" class="conversation-scroll"></div>
+            </div>
+          </div>
+        </div><div class="conversation-row" id="conversation-bottomrow">
+          <div class="conversation-cell conversation-bottom">
+            <input placeholder="Type a message here" id="messageBox" type="text" maxlength="140" /><!--
+            --><button id="sendButton">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{end}}
+
+{{define "deferredIncludes"}}
+  <link rel="stylesheet" type="text/css" href="/css/dialog.css" />
+  <script type="text/javascript">
+    window.csrfToken = "{{ .Session.CsrfToken }}";
+  </script>
+  <script type="text/javascript" src="/js/message.js"></script>
+{{end}}

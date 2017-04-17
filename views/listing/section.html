@@ -1,0 +1,30 @@
+{{define "activePageSelector" -}}
+#{{.Data.ActiveLink}}, #lnk_listings
+{{- end}}
+
+{{define "title"}}
+  Calagora :: Browsing {{.Data.TypeStr}}
+{{end}}
+
+{{define "body"}}
+<section class="padded">
+  <div>
+    <h4 class="inline">{{.Data.TypeStr}}</h4>
+  </div>
+  <div id="listing-list"></div>
+  <div class="loading-or-load-more" style="display: none;">
+    <img id="listing-progress" src="/img/progress.gif" />
+    <button id="listing-more" class="load-more">Load More</button>
+  </div>
+</section>
+{{end}}
+
+{{define "deferredIncludes"}}
+<link rel="stylesheet" type="text/css" href="/css/section.css" />
+<script type="text/javascript">
+  window.sectionMode = true;
+  window.section = "{{.Data.Type}}";
+</script>
+<script type="text/javascript" src="/js/pager.js"></script>
+<script type="text/javascript" src="/js/listingBlocks.js"></script>
+{{end}}

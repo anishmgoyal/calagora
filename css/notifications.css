@@ -1,0 +1,65 @@
+.notification-popup {
+  background-color: #eee;
+  border-color: rgba(60, 60, 60, 0.4);
+  border-style: solid;
+  border-width: 4px;
+  color: black;
+  font-size: 0.8em;
+  height: 0;
+  max-height: 100vh;
+  max-width: 100%;
+  position: fixed;
+  transition: height 0.4s, padding-top 0.4s;
+  top: 0;
+  right: 0;
+  width: 25em;
+  z-index: 20;
+}
+
+.notification-popup.open {
+  display: inline-block;
+  height: 30em;
+  padding-top: 3.5em;
+  transition: height 0.4s, padding-top 0.4s;
+}
+
+.notification-all {
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+}
+
+.notification {
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  padding: 1em;
+  vertical-align: middle;
+}
+
+.notification.new:before {
+  background-color: rgb(80, 120, 200);
+  color: white;
+  content: 'NEW';
+  font-size: 0.6em;
+  padding: 0.2em 0.5em;
+  margin-right: 0.3em;
+  vertical-align: middle;
+}
+
+.notification:hover {
+  background-color: #bbf;
+  background-color: #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+@media only screen and (max-width: 40em) {
+  .notification-popup {
+    width: 100%;
+  }
+}
+
+@media print {
+  .notification-popup {
+    display: none !important;
+  }
+}

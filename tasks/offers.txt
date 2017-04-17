@@ -1,0 +1,5 @@
+** Listing View Offer Feed
+
+  Need a list of offers and descriptions of them on listings when a seller
+  views his/her own, and a snippet showing a user's current offer when
+  they view a listing as a buyer.

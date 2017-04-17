@@ -1,0 +1,110 @@
+{{define "title"}}
+  Calagora :: New Listing
+{{end}}
+
+{{define "body"}}
+<section class="formContainer">
+  <section class="formBox">
+    <form class="small-full large-dthird grid-wide form" method="post" action="/listing/create/">
+      <div class="small-full grid-wide">
+        <h4>New Listing</h4>
+      </div>
+      {{if .Data.HasError }}
+        <div class="grid-wide small error">
+          {{- .Data.Error.Global -}}
+        </div>
+      {{end}}
+
+      <div class="small-full grid-wide">
+        <label>Listing Title</label>
+        <div class="small error">
+          {{- .Data.Error.Name -}}
+        </div>
+        <input type="text" name="name" value="{{ .Data.Listing.Name }}" />
+      </div>
+
+      <div class="small-full grid-wide">
+        <label>Images</label>
+        <div class="formBlock small">
+          You will be able to add images after entering the details of your
+          listing.
+        </div>
+      </div>
+
+      <div class="small-full medium-third grid-wide">
+        <label>Price</label>
+        <div class="small error">
+          {{- .Data.Error.Price -}}
+        </div>
+        <input type="num" name="price" value="{{ .Data.Listing.PriceClient }}" />
+      </div><!--
+      --><div class="small-full medium-third grid-wide">
+        <label>Category</label>
+        <div class="small error">
+          {{- .Data.Error.Type -}}
+        </div>
+        <select name="type" value="{{ .Data.Listing.Type }}">
+          {{ $c := .Constants }}
+          {{ $l := .Data.Listing }}
+          {{ range $ind, $type := (index .Constants "listing.typenames") }}
+            <option value="{{ $type }}"
+              {{- if eq (compare $type $l.Type) 0 -}}
+                selected = "selected"
+              {{- end -}}>
+              {{- index (index $c "listing.types") $type -}}
+            </option>
+          {{ end }}
+        </select>
+      </div><!--
+      --><div class="small-full medium-third grid-wide">
+        <label>Condition</label>
+        <div class="small error">
+          {{- .Data.Error.Condition -}}
+        </div>
+        <select name="condition">
+          {{ $c := .Constants }}
+          {{ $l := .Data.Listing }}
+          {{ range $ind, $type := (index .Constants "listing.conditionnames") }}
+            <option value="{{ $type }}"
+              {{- if eq (compare $type $l.Condition) 0 -}}
+                selected="selected"
+              {{- end -}}>
+              {{- index (index $c "listing.conditions") $type -}}
+            </option>
+          {{ end }}
+        </select>
+      </div>
+
+      <div class="small-full grid-wide formBlock">
+        <label>Description</label>
+        <div class="small error">
+          {{- .Data.Error.Description -}}
+        </div>
+        <textarea name="description">{{ .Data.Listing.Description }}</textarea>
+      </div>
+
+      <input type="hidden" name="csrfToken" value="{{ .Session.CsrfToken }}" />
+      <input type="hidden" name="submissionType" id="submissionType" value="addim" />
+
+      <div class="small-full medium-third grid-wide">
+        <button type="submit"
+          onclick="document.getElementById('submissionType').value = 'addim'">
+            Add Images
+        </button>
+      </div><!--
+      --><div class="small-full medium-third grid-wide">
+        <button type="submit"
+          onclick="document.getElementById('submissionType').value = 'draft'">
+            Save as Draft
+        </button>
+      </div><!--
+      --><div class="small-full medium-third grid-wide">
+        <button type="submit"
+          onclick="document.getElementById('submissionType').value = 'publish'">
+            Publish Listing
+        </button>
+      </div>
+    </form>
+  </section>
+</section>
+{{end}}

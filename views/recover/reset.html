@@ -1,0 +1,39 @@
+{{define "title"}}
+  Calagora :: Reset Password
+{{end}}
+
+{{define "body"}}
+  <section class="formContainer">
+    <section class="formBox">
+      <form class="small-full medium-dthird large-third form formPadded" method="post"
+        action="/recover/user/{{.Data.User.ID}}/{{.Data.RecoveryString}}">
+
+        <div>
+          <h4>Reset Password</h4>
+        </div>
+        <div class="small formBlock">
+          Please provide the code you were sent in the recovery email, and
+          create a new password for your account.
+        </div>
+        <label>Recovery Code</label>
+        <div class="small error">
+          {{- .Data.CodeError -}}
+        </div>
+        <input type="text" id="recovery_code" style="text-transform: uppercase;" name="recovery_code" value="{{.Data.RecoveryCode}}" autofocus />
+        <label>Password</label>
+        <div class="small error">
+          {{- .Data.UserError.Password -}}
+        </div>
+        <input type="password" id="password" name="password" />
+        <label>Confirm Password</label>
+        <div class="small error">
+          {{- .Data.UserError.PasswordConfirmation -}}
+        </div>
+        <input type="password" id="password_confirmation" name="password_confirmation" />
+        <div>
+          <button type="submit">Reset Password</button>
+        </div>
+      </form>
+    </section>
+  </section>
+{{end}}

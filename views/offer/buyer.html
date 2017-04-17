@@ -1,0 +1,95 @@
+{{define "title"}}
+  Calagora :: {{ title .Data.Listing.Name }}
+{{end}}
+
+{{define "body"}}
+<section class="formContainer">
+  <section class="formBox">
+    <form class="small-full medium-half large-third form enforceSize formPaddedLess" method="post" action="/offer/buyer/{{ .Data.Listing.ID }}">
+      <input type="hidden" name="csrfToken" value="{{ .Session.CsrfToken }}" />
+      <input type="hidden" name="listing_id" value="{{ .Data.Listing.ID }}" />
+
+      <div class="small-full grid-wide formBlock">
+        <h4>{{ title .Data.Listing.Name }}</h4>
+      </div>
+      {{if .Data.HasError }}
+        <div class="grid-wide small error">
+          {{- .Data.Error.Global -}}
+        </div>
+      {{end}}
+
+      <div class="small-full grid-wide formBlock">
+        <label>Asking Price</label>
+        <div class="small">
+          The seller would like <strong>${{ .Data.Listing.PriceClient }}</strong>
+          for this item.
+        </div>
+      </div>
+
+      {{ if .Data.Offer.IsCountered }}
+        <div class="small-full grid-wide formBlock">
+          <label>Counter Offer</label>
+          <div class="small">
+            The seller countered your offer at
+            <strong>${{ .Data.Offer.CounterClient }}</strong>.
+          </div>
+        </div>
+      {{ end }}
+
+      {{ if .Data.Offer.IsCountered }}
+        {{ if gt (len .Data.Offer.SellerComment) 0 }}
+          <div class="small-full grid-wide formBlock">
+            <label>Comments from Seller</label>
+            <div class="small">
+              {{- .Data.Offer.SellerComment -}}
+            </div>
+          </div>
+        {{ end }}
+      {{ end }}
+
+
+      <div class="small-full grid-wide formBlock">
+        <label>Your Offer (USD)</label>
+        <div class="small error">
+          {{- .Data.Error.Price -}}
+        </div>
+        <input type="text" name="price" value="{{ .Data.Offer.PriceClient }}" autofocus />
+      </div>
+
+      <div class="small-full grid-wide formBlock">
+        <label>Comments for Seller (Optional)</label>
+        <div class="small error">
+          {{- .Data.Error.BuyerComment -}}
+        </div>
+        <textarea class="char_140" maxlength="140" name="buyer_comment">
+          {{- .Data.Offer.BuyerComment -}}
+        </textarea>
+      </div>
+      <div class="small-full grid-wide">
+        <button type="submit">Make Offer</button>
+      </div>
+      {{ if gt .Data.Offer.ID 0 }}
+      <div class="small-full grid-wide">
+        <a class="button" href="javascript:deleteOffer({{.Data.Offer.ID}}, 'Revoke', redirectToListing)">
+          <button type="button">Revoke Offer</button>
+        </a>
+      </div>
+      {{ end }}
+      <div class="small grid-wide">
+        <a href="/listing/view/{{ .Data.Listing.ID }}">Return to Listing</a>
+      </div>
+    </form>
+  </section>
+</section>
+{{end}}
+
+{{define "deferredIncludes"}}
+  <script type="text/javascript">
+    window.csrfToken = "{{.Session.CsrfToken}}";
+    function redirectToListing()
+    {
+      window.location.href = "/listing/view/{{ .Data.Listing.ID }}";
+    }
+  </script>
+  <script type="text/javascript" src="/js/apis.js"></script>
+{{end}}
