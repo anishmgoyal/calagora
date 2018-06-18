@@ -1,4 +1,6 @@
 #<up "1.00">
+#<depend "users:1.00">
+#<depend "listings:1.00">
 CREATE TABLE offers (
   id serial primary key,
   price int not null,

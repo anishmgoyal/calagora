@@ -1,4 +1,5 @@
 #<up "1.00">
+#<depend "users:1.00">
 CREATE TABLE images (
     id serial primary key,
     media varchar(20),

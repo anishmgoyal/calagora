@@ -1,4 +1,6 @@
-#<up "1.00"
+#<up "1.00">
+#<depend "users:1.00">
+#<depend "offers:1.00">
 CREATE TABLE messages (
   id serial primary key,
   message varchar(200),

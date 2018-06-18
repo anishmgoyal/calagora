@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 	"io"
+	"log"
 	"os"
 
 	"github.com/anishmgoyal/calagora/constants"
@@ -38,14 +39,17 @@ func UploadFileToPublic(name, mimeType string, file *os.File) bool {
 	outputFile, err := os.Create(constants.FileSaveDir +
 		string(os.PathSeparator) + name)
 	if err != nil || outputFile == nil {
+		log.Println("Failed to create output file: ", err)
 		return false
 	}
 	defer outputFile.Close()
 	if _, err = io.Copy(outputFile, file); err != nil {
+		log.Println("Failed to copy file: ", err)
 		return false
 	}
 	err = outputFile.Sync()
 	if err != nil {
+		log.Println("Failed to sync output file: ", err)
 	}
 	return err == nil
 }
@@ -67,5 +71,11 @@ func DeleteFileFromPublic(name string) bool {
 		return true
 	}
 	err := os.Remove(constants.FileSaveDir + string(os.PathSeparator) + name)
+	if os.IsNotExist(err) {
+		log.Println("Cannot delete non-existant file;", err)
+		return true
+	} else if err != nil {
+		log.Println("Failed to delete a file: ", err)
+	}
 	return err == nil
 }

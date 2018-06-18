@@ -1,4 +1,5 @@
 #<up "1.00">
+#<depend "place:1.00">
 CREATE TABLE users (
 	id serial primary key,
 	username varchar(40) unique not null,

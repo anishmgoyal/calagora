@@ -378,6 +378,18 @@
                       "refresh the page or try again later.",
                     buttons: [{text: "OK", onclick: function(){}}]
                   });
+                },
+                success: function(data)
+                {
+                  if (!data.successful)
+                  {
+                    new Dialog({
+                      title: "Failed To Delete Image",
+                      content: "The image could not be deleted. Please " +
+                        "refresh the page or try again later.",
+                      buttons: [{text: "OK", onclick: function(){}}]
+                    });
+                  }
                 }
               })
           }},

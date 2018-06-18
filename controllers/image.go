@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -48,6 +49,7 @@ func WebAPIImageDelete(w http.ResponseWriter, r *http.Request) {
 
 	ok, err := image.Delete(Base.Db)
 	if !ok && err != nil {
+		log.Println("Failed to delete file: ", err)
 		RenderJSON(w, response)
 		return
 	}

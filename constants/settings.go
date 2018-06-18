@@ -66,7 +66,7 @@ var S3ObjectPrefix = "public/"
 var S3RegionString = "us-east-1"
 
 // FileSaveDir is where files should be saved if not AWS
-var FileSaveDir = "C:\\Users\\Anish\\Desktop\\cal-upload-test\\"
+var FileSaveDir = "uploads"
 
 // SMTPHostname is the server which handles sending emails
 var SMTPHostname = "email-smtp.us-east-1.amazonaws.com"

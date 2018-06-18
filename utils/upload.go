@@ -2,6 +2,7 @@ package utils
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
@@ -174,6 +175,9 @@ func (r *RequestUtil) MultipartProgressReader(token string, echoSelf string,
 		}
 
 		err = processPart(token, part, ch)
+		if err != nil {
+			fmt.Println("Error processing part: " + err.Error())
+		}
 	}
 
 	close(ch)
@@ -193,6 +197,7 @@ func processPart(token string, part *multipart.Part,
 
 	tempFile, err := ioutil.TempFile(TempDirectory, "upload")
 	if err != nil {
+		fmt.Println(err.Error())
 		return err
 	}
 
@@ -202,14 +207,25 @@ func processPart(token string, part *multipart.Part,
 
 	// This loop handles the upload, and tracks progress
 	buffer := make([]byte, 4096)
-	for {
+	isEof := false
+	for !isEof {
 		numRead, err := part.Read(buffer)
-		if err == io.EOF {
-			break
+
+		if err != nil {
+			if err == io.EOF {
+				if numRead == 0 {
+					break
+				}
+				isEof = true
+			} else {
+				tempFile.Close()
+				os.Remove(tempFile.Name())
+				return errors.New("Failed to read file: " + err.Error())
+			}
 		}
 		totalCount += numRead
 
-		if numRead > MaxFileSize {
+		if totalCount > MaxFileSize {
 			tempFile.Close()
 			os.Remove(tempFile.Name())
 			return errors.New("File too large")
