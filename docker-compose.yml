@@ -1,6 +1,6 @@
 version: "3"
 services:
-  calagoradb:
+  db:
     image: calagoradb
     deploy:
       replicas: 1
@@ -11,9 +11,11 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - calagora_net
-  calagora:
+      - net
+  web:
     image: calagora
+    depends_on:
+      - db
     deploy:
       replicas: 1
       resources:
@@ -23,6 +25,6 @@ services:
     ports:
       - "2646:2646"
     networks:
-      - calagora_net
+      - net
 networks:
-  calagora_net:
+  net:

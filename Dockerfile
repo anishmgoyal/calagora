@@ -9,7 +9,7 @@ ADD views/ /cl/views
 ADD . /cl/src/go/src/github.com/anishmgoyal/calagora
 
 ENV GOPATH=/cl/src/go
-ENV CALAGORA_DB_HOST "calagoradb:5432"
+ENV CALAGORA_DB_HOST "db:5432"
 ENV CALAGORA_SAVE_DIR "/cl/files/"
 
 # Build Calagora
